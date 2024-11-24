@@ -16,8 +16,8 @@ new_db;ElectricCar1;Driving of Car;kg;Global;Process;eco-invent;copper for car;1
 # Convert CSV to DataFrame
 def convert_csv_to_df(csv_data):
     try:
-        # Read CSV string into DataFrame, handle semicolon delimiter
-        df = pd.read_csv(StringIO(csv_data), sep=";")
+        # Read CSV string into DataFrame, handle semicolon delimiter and quotechar for handling quotes
+        df = pd.read_csv(StringIO(csv_data), sep=";", quotechar='"')
         return df
     except Exception as e:
         st.error(f"Error while parsing the CSV data: {e}")
