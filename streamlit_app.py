@@ -80,7 +80,7 @@ def main():
                 st.session_state.feedback_data = []
 
             # Confirm if feedback should be included
-            include_feedback = st.checkbox("Include feedback in final result")
+            include_feedback = st.checkbox("Include feedback in final result - next step would be background data matching - skip for now")
 
             if include_feedback and st.button("Submit Feedback"):
                 st.session_state.feedback_data.append({
@@ -98,7 +98,6 @@ def main():
             # Show Final Result (LCA Summary, CO2 Emission, etc.)
             if include_feedback:
                 st.subheader("Final LCA Result Summary")
-                st.write(f"### Query Summary: {query}")
 
                 # Mock LCA Results (CO2, Method, etc.)
                 st.write("**Estimated CO2 Emissions**: 120 kg CO2")
