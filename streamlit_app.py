@@ -19,11 +19,12 @@ def convert_csv_to_df(csv_data):
 
 # Streamlit App
 def main():
-    st.title("🌍 Life Cycle Assessment (LCA) Generator")
+    st.title("🌍 LCA Generator")
     st.write(
         """
         Welcome to the **LCA AI Machine**! This app helps you generate detailed Life Cycle Assessment (LCA) tables 
         based on your query. Provide a description of your scenario, and we'll generate an interactive, downloadable LCA table.
+        This is a fake mock-up
         """
     )
 
@@ -34,8 +35,8 @@ def main():
             """
             1. Enter your query describing the LCA scenario in the text box.
             2. Click **Generate LCA Table** to process your query.
-            3. View the table output below.
-            4. Provide feedback on the generated table.
+            3. Provide feedback on the generated table.
+            4. Matching
             5. Optionally, validate whether the feedback should be used for the final LCA result.
             6. Download the final LCA report.
             """
@@ -78,7 +79,7 @@ def main():
                 "Rating": rating,
                 "Feedback": feedback
             })
-            st.success("Thank you for your feedback!")
+            st.success("Thank you for your feedback! We will skip matching step for now...")
 
         # Show the feedback if the checkbox is selected
         if include_feedback and st.session_state.feedback_data:
@@ -88,8 +89,7 @@ def main():
         # Show Final Result (LCA Summary, CO2 Emission, etc.)
         if include_feedback:
             st.subheader("Final LCA Result Summary")
-            st.write(f"### Query Summary: {query}")
-
+            
             # Mock LCA Results (CO2, Method, etc.)
             st.write("**Estimated CO2 Emissions**: 120 kg CO2")
             st.write("**Method Used**: EcoInvent 3.8")
