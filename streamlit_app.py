@@ -59,6 +59,9 @@ def main():
         st.subheader("Generated foreground Table")
         st.text(csv_output)
 
+        st.subheader("Find relevant background data")
+        st.subheader("Find relevant background data")
+
         # Allow user to download the CSV file
         @st.cache_data
         def convert_to_csv(data):
