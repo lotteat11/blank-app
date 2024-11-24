@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from io import StringIO
 
 # Function to create CSV output
@@ -66,12 +67,12 @@ def main():
         rating = st.slider("How would you rate the table?", min_value=1, max_value=5, value=3, step=1)
         feedback = st.text_area("Additional Feedback (optional)", placeholder="E.g., The table looks good, but some units are incorrect.")
         
+        # Initialize session state for feedback_data if it doesn't exist
+        if "feedback_data" not in st.session_state:
+            st.session_state.feedback_data = []
+
         if st.button("Submit Feedback"):
-            # Collect feedback into a local list (can be saved to a database)
-            if "feedback_data" not in st.session_state:
-                st.session_state.feedback_data = []
-            
-            # Append feedback
+            # Append feedback to session state
             st.session_state.feedback_data.append({
                 "Query": query,
                 "Rating": rating,
@@ -90,7 +91,7 @@ def main():
             return dataframe.to_csv(index=False, sep=";")
 
         st.download_button(
-            label=" Download LCA Table as CSV",
+            label="📥 Download LCA Table as CSV",
             data=st.session_state.csv_output,
             file_name="lca_output.csv",
             mime="text/csv",
