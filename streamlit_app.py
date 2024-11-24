@@ -55,14 +55,14 @@ def main():
         # Call the function with the query input
         csv_output = create_csv_output(query)
 
-        # Display the CSV output in the app
-        st.subheader("Generated foreground Table")
-        st.text(csv_output)
+        # User Input for query
+        Matching = st.text_area("Do you want to coninue", "Yes...")
+        if st.button("Matching"):
+            # Display the CSV output in the app
+             
+            st.subheader("Find relevant background data")
 
-        st.subheader("Find relevant background data")
-
-    
-        st.subheader("Result")
+            st.subheader("Result")
 
         # Allow user to download the CSV file
         @st.cache_data
