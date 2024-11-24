@@ -124,7 +124,7 @@ def main():
     st.markdown("---")
     st.markdown(
         """
-        **Developed by [Your Name or Organization](#)**  
+        **Developed by LCS in AAU And XXX(#)**  
         💡 Empowering sustainable decision-making through data-driven LCAs.  
         """
     )
