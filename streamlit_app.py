@@ -101,7 +101,7 @@ def main():
 
                 # Mock LCA Results (CO2, Method, etc.)
                 st.write("**Estimated CO2 Emissions**: 120 kg CO2")
-                st.write("**Method Used**: EcoInvent 3.8")
+                st.write("**Background data Used**: EcoInvent 3.8")
                 st.write("**LCA Type**: Carbon Footprint Analysis")
                 st.write("**Notes**: Assumptions based on average car fuel consumption over 900 km")
 
