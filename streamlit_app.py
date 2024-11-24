@@ -50,7 +50,7 @@ def main():
     # Query Input Section
     query = st.text_area(
         "Describe the scenario you want to analyze:",
-        placeholder="Example: I want to create an LCA for a car driving 900 km. It uses 200 kg of fuel...",
+        placeholder="Example: I want to investigate the impact of a car driving 900 km. It uses 200 kg of fuel...",
         height=150,
     )
 
