@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from io import StringIO
 
-# Function to create CSV output
+# Function to create CSV output (mock data)
 def create_csv_output(query):
     mock_data = """
 Activity database;Activity code;Activity name;Activity unit;Activity Location;Activity type;Exchange database;Exchange code;Exchange amount;Exchange unit;Exchange type;Exchange uncertainty type;Exchange loc;Exchange scale;Exchange negative;Notes
@@ -14,14 +14,24 @@ new_db;ElectricCar1;Driving of Car;kg;Global;Process;eco-invent;copper for car;1
     return mock_data
 
 # Mock-up for LCA Results (CO2 Emissions, Energy, etc.)
-def generate_lca_results(query):
-    # Mock-up LCA results based on the query, this would normally come from actual calculations.
-    results = {
-        "CO₂ Emissions (kg)": 150.0,
-        "Energy Consumption (kWh)": 35.0,
-        "Water Use (L)": 200.0,
-        "Material Use (kg)": 600.0
-    }
+def generate_lca_results(query, feedback_incorporated=False):
+    # Based on feedback, the results might change
+    if feedback_incorporated:
+        # If feedback was incorporated, modify results (e.g., adjust CO2 emissions)
+        results = {
+            "CO₂ Emissions (kg)": 130.0,  # adjusted from original value
+            "Energy Consumption (kWh)": 35.0,
+            "Water Use (L)": 190.0,  # adjusted
+            "Material Use (kg)": 590.0  # adjusted
+        }
+    else:
+        # Default results
+        results = {
+            "CO₂ Emissions (kg)": 150.0,
+            "Energy Consumption (kWh)": 35.0,
+            "Water Use (L)": 200.0,
+            "Material Use (kg)": 600.0
+        }
     return results
 
 # Streamlit App
@@ -43,8 +53,9 @@ def main():
             1. Enter your query describing the LCA scenario in the text box.
             2. Click **Generate LCA Table** to process your query.
             3. View the table output below.
-            4. Rate the table to help improve future outputs.
-            5. Optionally, download the table as a CSV file.
+            4. Provide feedback on the generated table.
+            5. Optionally, validate whether the feedback should be used for the final LCA result.
+            6. Download the final LCA report.
             """
         )
         st.info("🔍 Tip: Be as detailed as possible in your query for better results!")
@@ -57,90 +68,5 @@ def main():
         height=150,
     )
 
-    # Session state for CSV output
-    if "csv_output" not in st.session_state:
-        st.session_state.csv_output = None
-
-    # Generate Button
-    if st.button("Generate LCA Table"):
-        st.session_state.csv_output = create_csv_output(query)
-
-    # Output Section
-    if st.session_state.csv_output:
-        st.header("LCA Table Output")
-        st.success("✅ Table generated successfully!")
-        
-        # Display CSV as plain text (could be turned into a DataFrame later)
-        st.text(st.session_state.csv_output)
-
-        # Mock-up LCA Results (e.g., CO2 emissions, energy, water use)
-        lca_results = generate_lca_results(query)
-        
-        # Display Results in a Table Format
-        st.subheader("LCA Results Summary")
-        lca_df = pd.DataFrame(list(lca_results.items()), columns=["Indicator", "Value"])
-        st.dataframe(lca_df, use_container_width=True)
-
-        # Methodology Section
-        st.subheader("Methodology")
-        st.write(
-            """
-            The Life Cycle Assessment (LCA) was conducted using a **cradle-to-grave** approach, 
-            where the entire lifecycle of the product from raw material extraction, manufacturing, 
-            transportation, usage, and end-of-life was considered. The impact categories include:
-            - **CO₂ emissions**
-            - **Energy consumption**
-            - **Water usage**
-            - **Material usage**
-
-            The data for the analysis was derived from standard life cycle inventories and impact factors.
-            """
-        )
-
-        # Rating System
-        st.subheader("Rate the Table")
-        rating = st.slider("How would you rate the table?", min_value=1, max_value=5, value=3, step=1)
-        feedback = st.text_area("Additional Feedback (optional)", placeholder="E.g., The table looks good, but some units are incorrect.")
-        
-        # Initialize session state for feedback_data if it doesn't exist
-        if "feedback_data" not in st.session_state:
-            st.session_state.feedback_data = []
-
-        if st.button("Submit Feedback"):
-            # Append feedback to session state
-            st.session_state.feedback_data.append({
-                "Query": query,
-                "Rating": rating,
-                "Feedback": feedback
-            })
-            st.success("Thank you for your feedback! It has been recorded.")
-        
-        # Feedback Display (for debugging/tracking purposes)
-        if st.session_state.feedback_data:
-            st.subheader("Collected Feedback (Preview)")
-            st.write(pd.DataFrame(st.session_state.feedback_data))
-
-        # Download Section
-        @st.cache_data
-        def convert_df_to_csv(dataframe):
-            return dataframe.to_csv(index=False, sep=";")
-
-        st.download_button(
-            label="📥 Download LCA Table as CSV",
-            data=st.session_state.csv_output,
-            file_name="lca_output.csv",
-            mime="text/csv",
-        )
-    
-    # Footer Section
-    st.markdown("---")
-    st.markdown(
-        """
-        **Developed by [Your Name or Organization](#)**  
-        💡 Empowering sustainable decision-making through data-driven LCAs.  
-        """
-    )
-
-# Run the app
-if __name__ == "__main__":
-    main()
+    # Session state for CSV output and feedback
+    if "csv_output" not in s
