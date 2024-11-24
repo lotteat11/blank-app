@@ -13,6 +13,17 @@ new_db;ElectricCar1;Driving of Car;kg;Global;Process;eco-invent;copper for car;1
     """
     return mock_data
 
+# Mock-up for LCA Results (CO2 Emissions, Energy, etc.)
+def generate_lca_results(query):
+    # Mock-up LCA results based on the query, this would normally come from actual calculations.
+    results = {
+        "CO₂ Emissions (kg)": 150.0,
+        "Energy Consumption (kWh)": 35.0,
+        "Water Use (L)": 200.0,
+        "Material Use (kg)": 600.0
+    }
+    return results
+
 # Streamlit App
 def main():
     # App Title and Description
@@ -59,8 +70,32 @@ def main():
         st.header("LCA Table Output")
         st.success("✅ Table generated successfully!")
         
-        # Display CSV as plain text
+        # Display CSV as plain text (could be turned into a DataFrame later)
         st.text(st.session_state.csv_output)
+
+        # Mock-up LCA Results (e.g., CO2 emissions, energy, water use)
+        lca_results = generate_lca_results(query)
+        
+        # Display Results in a Table Format
+        st.subheader("LCA Results Summary")
+        lca_df = pd.DataFrame(list(lca_results.items()), columns=["Indicator", "Value"])
+        st.dataframe(lca_df, use_container_width=True)
+
+        # Methodology Section
+        st.subheader("Methodology")
+        st.write(
+            """
+            The Life Cycle Assessment (LCA) was conducted using a **cradle-to-grave** approach, 
+            where the entire lifecycle of the product from raw material extraction, manufacturing, 
+            transportation, usage, and end-of-life was considered. The impact categories include:
+            - **CO₂ emissions**
+            - **Energy consumption**
+            - **Water usage**
+            - **Material usage**
+
+            The data for the analysis was derived from standard life cycle inventories and impact factors.
+            """
+        )
 
         # Rating System
         st.subheader("Rate the Table")
