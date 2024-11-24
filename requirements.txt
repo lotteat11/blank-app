@@ -1,1 +1,9 @@
 streamlit
+langchain.llms
+getpass
+pandas
+langchain_community.chat_models 
+langchain import 
+langchain_core.prompts
+from langchain.chains
+
