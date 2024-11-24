@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from io import StringIO
 
-# Function to create CSV output
+# Function to create CSV output (mock data)
 def create_csv_output(query):
     mock_data = """
     Activity database;Activity code;Activity name;Activity unit;Activity Location;Activity type;Exchange database;Exchange code;Exchange amount;Exchange unit;Exchange type;Exchange uncertainty type;Exchange loc;Exchange scale;Exchange negative;Notes
@@ -95,6 +95,21 @@ def main():
             st.write("**Method Used**: EcoInvent 3.8")
             st.write("**LCA Type**: Carbon Footprint Analysis")
             st.write("**Notes**: Assumptions based on average car fuel consumption over 900 km")
+
+            # Create a professional table showing the results
+            result_data = {
+                "Material/Activity": ["Fuel for Driving", "Aluminum for Car", "Copper for Car"],
+                "Amount": ["1 liter", "500 kg", "100 kg"],
+                "CO2 Emission (kg)": [0.23, 1.1, 0.2],
+                "Energy Consumption (MJ)": [5.5, 20.0, 12.5],
+                "Water Usage (liters)": [0.5, 400, 50],
+                "Recycling Potential (%)": [50, 90, 80]
+            }
+
+            result_df = pd.DataFrame(result_data)
+
+            st.subheader("LCA Results Table")
+            st.dataframe(result_df, use_container_width=True)
 
     # Footer Section
     st.markdown("---")
