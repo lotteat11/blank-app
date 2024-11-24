@@ -29,7 +29,7 @@ def main():
     st.write(
         """
         Welcome to the **LCA AI Machine**!  This app helps you generate detailed Life Cycle Assessment (LCA) tables 
-        based on your query. Unfortunately this is all fake - but imagin..Provide a description of your scenario, and we'll generate an interactive, downloadable LCA table.
+        based on your query. Unfortunately this is all fake - but imagine this; Provide a description of your scenario, and we'll generate an interactive, downloadable LCA table.
         """
     )
 
