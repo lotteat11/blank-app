@@ -3,7 +3,7 @@ langchain.llms
 getpass
 pandas
 langchain_community.chat_models 
-langchain import 
+langchain
 langchain_core.prompts
 langchain.chains
 
