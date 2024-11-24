@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 import csv
 from io import StringIO
 
@@ -55,9 +56,18 @@ def main():
         # Call the function with the query input
         csv_output = create_csv_output(query)
 
-        # Display the CSV output in the app
+        # Display the CSV output as a nice table (convert to pandas DataFrame)
         st.subheader("Generated LCA Table")
-        st.text(csv_output)
+
+        # Convert the CSV string into a pandas DataFrame
+        # First, use StringIO to simulate a file object from the CSV string
+        csv_file = StringIO(csv_output)
+        
+        # Read the CSV data into a pandas DataFrame
+        df = pd.read_csv(csv_file, delimiter=";")
+
+        # Display the DataFrame in Streamlit as an interactive table
+        st.dataframe(df)
 
         # Allow user to download the CSV file
         @st.cache_data
