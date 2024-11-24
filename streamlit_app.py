@@ -25,11 +25,11 @@ def convert_csv_to_df(csv_data):
 
 # Streamlit App
 def main():
-    st.title("🌍 Life Cycle Assessment (LCA) Generator")
+    st.title("🌍 Life Cycle Assessment Generator")
     st.write(
         """
-        Welcome to the **LCA AI Machine**! This app helps you generate detailed Life Cycle Assessment (LCA) tables 
-        based on your query. Provide a description of your scenario, and we'll generate an interactive, downloadable LCA table.
+        Welcome to the **LCA AI Machine**!  This app helps you generate detailed Life Cycle Assessment (LCA) tables 
+        based on your query. Unfortunately this is all fake - but imagin..Provide a description of your scenario, and we'll generate an interactive, downloadable LCA table.
         """
     )
 
