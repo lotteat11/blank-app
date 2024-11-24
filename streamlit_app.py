@@ -1,5 +1,14 @@
 import streamlit as st
 import os
+import os
+from getpass import getpass
+import pandas as pd
+from langchain_community.chat_models import ChatOllama 
+from langchain import PromptTemplate
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.prompts.few_shot import FewShotPromptTemplate
+from langchain.chains import LLMChain
+from langchain_core.output_parsers import StrOutputParser
 
 # List of queries
 queries = [
