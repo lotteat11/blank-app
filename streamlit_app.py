@@ -55,7 +55,7 @@ def main():
         # Call the function with the query input
         csv_output = create_csv_output(query)
         st.text(csv_output)
-        st.text("please rate the matrix 1-5. Please correct)
+        st.text("please rate the matrix 1-5. ")
         # User Input for query
         Matching = st.text_area("Do you want to coninue", "Yes...")
         if st.button("Matching"):
