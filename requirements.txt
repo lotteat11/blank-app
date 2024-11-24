@@ -1,6 +1,5 @@
 streamlit
 langchain.llm
-getpass
 pandas
 langchain_community.chat_models 
 langchain
