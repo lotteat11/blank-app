@@ -23,6 +23,11 @@ def convert_csv_to_df(csv_data):
         st.error(f"Error while parsing the CSV data: {e}")
         return None
 
+# Function to convert DataFrame to CSV for download
+@st.cache_data
+def convert_df_to_csv(dataframe):
+    return dataframe.to_csv(index=False, sep=";")
+
 # Streamlit App
 def main():
     st.title("🌍 LCA Generator")
@@ -120,6 +125,7 @@ def main():
                 st.subheader("LCA Results Table")
                 st.dataframe(result_df, use_container_width=True)
 
+                # Add the download button for the final LCA table
                 st.download_button(
                     label="📥 Download Final LCA Report as CSV",
                     data=convert_df_to_csv(result_df),
