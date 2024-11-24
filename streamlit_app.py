@@ -59,7 +59,10 @@ def main():
         st.subheader("Generated foreground Table")
         st.text(csv_output)
 
+        st.subheader("Please help confirm if this is correct")
         st.subheader("Find relevant background data")
+
+        st.subheader("Please help confirm if this is correct")
         st.subheader("Find relevant background data")
 
         # Allow user to download the CSV file
