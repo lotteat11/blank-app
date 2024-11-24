@@ -59,32 +59,30 @@ def main():
         # User Input for query
         Matching = st.text_area("Do you want to coninue", "Yes...")
         if st.button("Matching"):
-            # Display the CSV output in the app
-             
+            # Display the CSV output in the app 
             st.subheader("Find relevant background data")
-
             st.subheader("Result")
 
         # Allow user to download the CSV file
-        @st.cache_data
-        def convert_to_csv(data):
-            # Use StringIO to simulate a file in memory
-            csv_file = StringIO()
-            csv_writer = csv.writer(csv_file, delimiter=";")
-            for row in data.splitlines():
-                csv_writer.writerow(row.split(";"))
-            return csv_file.getvalue()
+            @st.cache_data
+            def convert_to_csv(data):
+                # Use StringIO to simulate a file in memory
+                csv_file = StringIO()
+                csv_writer = csv.writer(csv_file, delimiter=";")
+                for row in data.splitlines():
+                    csv_writer.writerow(row.split(";"))
+                return csv_file.getvalue()
 
-        # Convert the CSV string into downloadable file
-        csv_data = convert_to_csv(csv_output)
+            # Convert the CSV string into downloadable file
+            csv_data = convert_to_csv(csv_output)
 
-        # Provide download link
-        st.download_button(
-            label="Download CSV",
-            data=csv_data,
-            file_name="lca_output.csv",
-            mime="text/csv"
-        )
+        #     Provide download link
+            st.download_button(
+                label="Download CSV",
+                data=csv_data,
+                file_name="lca_output.csv",
+                mime="text/csv"
+            )
 
 # Run the app
 if __name__ == "__main__":
