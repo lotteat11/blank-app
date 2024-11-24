@@ -1,7 +1,6 @@
 import streamlit as st
 import os
 import os
-from getpass import getpass
 import pandas as pd
 from langchain_community.chat_models import ChatOllama 
 from langchain import PromptTemplate
