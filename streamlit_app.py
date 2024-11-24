@@ -60,7 +60,8 @@ def main():
         st.success("✅ Table generated successfully!")
 
         # Display the table as text (can be customized later)
-        st.text(st.session_state.csv_output)
+        df = convert_csv_to_df(st.session_state.csv_output)
+        st.dataframe(df, use_container_width=True)
 
         # Collect feedback
         st.subheader("Provide Feedback on the Table")
