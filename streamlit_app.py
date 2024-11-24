@@ -90,7 +90,7 @@ def main():
             return dataframe.to_csv(index=False, sep=";")
 
         st.download_button(
-            label="📥 Download LCA Table as CSV",
+            label=" Download LCA Table as CSV",
             data=st.session_state.csv_output,
             file_name="lca_output.csv",
             mime="text/csv",
