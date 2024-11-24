@@ -45,7 +45,7 @@ def create_csv_output(query):
 
 # Streamlit App
 def main():
-    st.title("LCA Query Processing and CSV Output")
+    st.title("LCA AI MACHINE")
 
     # User Input for query
     query = st.text_area("Enter your LCA Query", "I want to create a LCA for a car driving 900 km. It uses 200 kg of fuel...")
@@ -56,7 +56,7 @@ def main():
         csv_output = create_csv_output(query)
 
         # Display the CSV output in the app
-        st.subheader("Generated LCA Table")
+        st.subheader("Generated foreground Table")
         st.text(csv_output)
 
         # Allow user to download the CSV file
