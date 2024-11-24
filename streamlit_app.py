@@ -2,38 +2,8 @@ import streamlit as st
 import csv
 from io import StringIO
 
-# Your function to create CSV output (modify the response part according to your code)
+# Your function to create CSV output
 def create_csv_output(query):
-    # Define the template for the LCA output
-    qa_and_matrix_template = """
-    Based on the context below, generate a table with the following columns:
-    Activity database; Activity code; Activity name; Activity unit; Activity Location; Activity type; Exchange database; Exchange code; Exchange amount; Exchange unit; Exchange type; Exchange uncertainty type; Exchange loc; Exchange scale; Exchange negative; Notes
-    
-    Ensure the output strictly follows these rules:
-    1. Use the same name in the "Activity Database" column for all rows.
-    2. Define the overall process. This is a production exchange type.
-    3. Provide the technosphere and biosphere exchanges rows one by one after the production row.
-    4. Ensure that the "Activity code" and "Activity name" columns are uniquely assigned to each production and used for each exchange row for this production.
-    5. Remember precise units (e.g., kg, kWh), location (county, region, global).
-    6. The "Exchange amount" column should match the amounts provided in the query. Do not fabricate or infer any data.
-    7. In the "Notes" column, provide a brief description of the exchange in the row, including its purpose and location.
-    8. If any data is missing or unclear, leave the field blank or mark it as "N/A." Do not fabricate any information.
-    
-    Output Structure: 
-    1. Generate the table in CSV format in a Semicolon-separated format.
-    2. Add any "Concerns" below the table
-
-    Context: 
-    The goal is to create a foreground database for a Technology Life Cycle Assessment (LCA). Each row corresponds to an exchange type.
-    
-    Question: {query}
-
-    Answer:
-    """
-    
-    # Sample output data (you can replace this with actual logic to parse query)
-    # This part is where you would integrate your model's response to generate the actual data
-    # Here we generate a mock CSV for the sake of example
     mock_data = """
     Activity database; Activity code; Activity name; Activity unit; Activity Location; Activity type; Exchange database; Exchange code; Exchange amount; Exchange unit; Exchange type; Exchange uncertainty type; Exchange loc; Exchange scale; Exchange negative; Notes
     new_db;ElectricCar1;Driviving of Car;km;Global;Process;new_db;Driviving of Car;1;km;Production;NAN;NAN;NAN;NAN;"Driving 1 km in the car's lifetime"
@@ -50,40 +20,52 @@ def main():
     # User Input for query
     query = st.text_area("Enter your LCA Query", "I want to create a LCA for a car driving 900 km. It uses 200 kg of fuel...")
 
+    # Create session state for CSV output
+    if "csv_output" not in st.session_state:
+        st.session_state.csv_output = None
+
     # When the button is pressed, generate the CSV output
     if st.button("Generate LCA Table"):
         # Call the function with the query input
-        csv_output = create_csv_output(query)
-        st.text(csv_output)
-        st.text("please rate the matrix 1-5. ")
-        # User Input for query
-        Matching = st.text_area("Do you want to coninue", "Yes...")
-        if st.button("Matching"):
-            # Display the CSV output in the app 
-            st.subheader("Find relevant background data")
-            st.text("This data is correct")
-            st.subheader("Result")
+        st.session_state.csv_output = create_csv_output(query)
 
-        # Allow user to download the CSV file
-            @st.cache_data
-            def convert_to_csv(data):
-                # Use StringIO to simulate a file in memory
-                csv_file = StringIO()
-                csv_writer = csv.writer(csv_file, delimiter=";")
-                for row in data.splitlines():
-                    csv_writer.writerow(row.split(";"))
-                return csv_file.getvalue()
+    # Show the CSV output if it exists in session state
+    if st.session_state.csv_output:
+        st.subheader("LCA Table Output")
+        st.text(st.session_state.csv_output)
 
-            # Convert the CSV string into downloadable file
-            csv_data = convert_to_csv(csv_output)
+        st.text("Please rate the matrix 1-5.")
+        rating = st.text_input("Rate the table:", "")
 
-        #     Provide download link
-            st.download_button(
-                label="Download CSV",
-                data=csv_data,
-                file_name="lca_output.csv",
-                mime="text/csv"
-            )
+        if rating:
+            st.write(f"Thank you for rating the table: {rating}")
+
+            st.text_area("Do you want to continue?", "Yes...")
+
+            if st.button("Matching"):
+                st.subheader("Find Relevant Background Data")
+                st.text("This data is correct")
+                st.subheader("Result")
+
+                # Allow user to download the CSV file
+                @st.cache_data
+                def convert_to_csv(data):
+                    csv_file = StringIO()
+                    csv_writer = csv.writer(csv_file, delimiter=";")
+                    for row in data.splitlines():
+                        csv_writer.writerow(row.split(";"))
+                    return csv_file.getvalue()
+
+                # Convert the CSV string into downloadable file
+                csv_data = convert_to_csv(st.session_state.csv_output)
+
+                # Provide download link
+                st.download_button(
+                    label="Download CSV",
+                    data=csv_data,
+                    file_name="lca_output.csv",
+                    mime="text/csv"
+                )
 
 # Run the app
 if __name__ == "__main__":
