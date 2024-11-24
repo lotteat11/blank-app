@@ -120,6 +120,13 @@ def main():
                 st.subheader("LCA Results Table")
                 st.dataframe(result_df, use_container_width=True)
 
+                st.download_button(
+                    label="📥 Download Final LCA Report as CSV",
+                    data=convert_df_to_csv(result_df),
+                    file_name="final_lca_report.csv",
+                    mime="text/csv"
+                )
+
     # Footer Section
     st.markdown("---")
     st.markdown(
