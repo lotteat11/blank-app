@@ -1,8 +1,8 @@
 streamlit
 langchain.llm
 pandas
-langchain_community.chat_models 
+langchain_community 
 langchain
-langchain_core.prompts
-langchain.chains
+langchain_core
+
 
