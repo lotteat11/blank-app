@@ -61,6 +61,7 @@ def main():
         if st.button("Matching"):
             # Display the CSV output in the app 
             st.subheader("Find relevant background data")
+            st.text(This data is correct)
             st.subheader("Result")
 
         # Allow user to download the CSV file
