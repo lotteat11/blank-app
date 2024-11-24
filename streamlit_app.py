@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 from io import StringIO
 
 # Function to create CSV output
@@ -12,10 +11,6 @@ new_db;ElectricCar1;Driving of Car;kg;Global;Process;eco-invent;aluminum for car
 new_db;ElectricCar1;Driving of Car;kg;Global;Process;eco-invent;copper for car;100;kg;Technosphere;100/900;kg;NAN;NAN;NAN;"Input: 100/900 kg of copper for creating car"
     """
     return mock_data
-
-# Convert CSV to DataFrame
-def convert_csv_to_df(csv_data):
-    return pd.read_csv(StringIO(csv_data), sep=";")
 
 # Streamlit App
 def main():
@@ -36,7 +31,8 @@ def main():
             1. Enter your query describing the LCA scenario in the text box.
             2. Click **Generate LCA Table** to process your query.
             3. View the table output below.
-            4. Optionally, download the table as a CSV file.
+            4. Rate the table to help improve future outputs.
+            5. Optionally, download the table as a CSV file.
             """
         )
         st.info("🔍 Tip: Be as detailed as possible in your query for better results!")
@@ -62,9 +58,31 @@ def main():
         st.header("LCA Table Output")
         st.success("✅ Table generated successfully!")
         
-        # Convert CSV to DataFrame and Display
-        df = convert_csv_to_df(st.session_state.csv_output)
-        st.dataframe(df, use_container_width=True)
+        # Display CSV as plain text
+        st.text(st.session_state.csv_output)
+
+        # Rating System
+        st.subheader("Rate the Table")
+        rating = st.slider("How would you rate the table?", min_value=1, max_value=5, value=3, step=1)
+        feedback = st.text_area("Additional Feedback (optional)", placeholder="E.g., The table looks good, but some units are incorrect.")
+        
+        if st.button("Submit Feedback"):
+            # Collect feedback into a local list (can be saved to a database)
+            if "feedback_data" not in st.session_state:
+                st.session_state.feedback_data = []
+            
+            # Append feedback
+            st.session_state.feedback_data.append({
+                "Query": query,
+                "Rating": rating,
+                "Feedback": feedback
+            })
+            st.success("Thank you for your feedback! It has been recorded.")
+        
+        # Feedback Display (for debugging/tracking purposes)
+        if st.session_state.feedback_data:
+            st.subheader("Collected Feedback (Preview)")
+            st.write(pd.DataFrame(st.session_state.feedback_data))
 
         # Download Section
         @st.cache_data
@@ -73,7 +91,7 @@ def main():
 
         st.download_button(
             label="📥 Download LCA Table as CSV",
-            data=convert_df_to_csv(df),
+            data=st.session_state.csv_output,
             file_name="lca_output.csv",
             mime="text/csv",
         )
