@@ -55,7 +55,7 @@ def main():
     # Query Input Section
     query = st.text_area(
         "Describe the scenario you want to analyze:",
-        placeholder="Example: I want to investigate the impact of a car driving 900 km. It uses 200 kg of fuel...",
+        placeholder="Example: Prepare a table for an LCA to assess the environmental impact of a diesel bus per kilometer traveled. The bus is expected to travel a total of 200,000 km over its lifetime. Include the production phase with 3,000 kg of steel and 500 kg of rubber. Account for 40,000 liters of diesel fuel consumed during operations, sourced from the technosphere. Exclude biosphere emissions....",
         height=150,
     )
 
