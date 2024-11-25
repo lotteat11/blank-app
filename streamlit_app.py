@@ -77,7 +77,7 @@ def main():
             st.dataframe(df, use_container_width=True)
 
             # Provide feedback options
-            st.subheader("Provide Feedback on the Table")
+            st.subheader("Feedback and iteration on the Table")
             rating = st.slider("How would you rate the table?", min_value=1, max_value=5, value=3, step=1)
             feedback = st.text_area("Additional Feedback (optional)", placeholder="E.g., The table looks good, but some units are incorrect.")
 
