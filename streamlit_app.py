@@ -66,7 +66,7 @@ def main():
         st.session_state.csv_output = create_csv_output(query)
 
     if st.session_state.csv_output:
-        st.header("LCA Table Output")
+        st.header("LCA Table")
         st.success("✅ Table generated successfully!")
 
         # Convert CSV to DataFrame and display it as a clean table
