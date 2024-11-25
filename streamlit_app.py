@@ -62,11 +62,11 @@ def main():
     if "csv_output" not in st.session_state:
         st.session_state.csv_output = None
 
-    if st.button("Generate LCA Table"):
+    if st.button("Prepare data"):
         st.session_state.csv_output = create_csv_output(query)
 
     if st.session_state.csv_output:
-        st.header("LCA Table")
+        st.header("Data preparation")
         st.success("✅ Table generated successfully!")
 
         # Convert CSV to DataFrame and display it as a clean table
@@ -85,7 +85,7 @@ def main():
                 st.session_state.feedback_data = []
 
             # Confirm if feedback should be included
-            include_feedback = st.checkbox("Include feedback in final result - next step would be background data matching - skip for now")
+            include_feedback = st.checkbox("Use the currecnt data version final result - next step would be background data matching - skip for now")
 
             if include_feedback and st.button("Submit Feedback"):
                 st.session_state.feedback_data.append({
